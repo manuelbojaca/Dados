@@ -9,9 +9,11 @@ public class Main {
 		GUI v1 = new GUI();
 		v1.setVisible(true);
 		
+		Maquina maquina = new Maquina();
+		//maquina.game();
 		
 		Pruebas pr = new Pruebas();
-		pr.BDPr();
+		//pr.BDPr();
 		
 		/*int res = (int)Math.floor(Math.random()*6+1);
 		System.out.println("Oka"+res);

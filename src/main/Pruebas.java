@@ -4,13 +4,11 @@ import java.util.Scanner;
 
 public class Pruebas {
 	
-	
-	
 	public void BDPr() {
 		
 		String s;
 		do {
-			BDTools bd = new BDTools();
+			BD bd = new BD();
 			this.pri("Que deseas Hacer:");
 			this.pri("1.Buscar y agragar a una Clase");
 			this.pri("2.Borrar");
@@ -25,13 +23,7 @@ public class Pruebas {
 					pri(bd.getDinero());
 					break;
 				case "2":
-					bd.buscar(sca());
-					bd.eliminar(bd.getNombre());
-					bd.copiar();
-					bd.eliminar(bd.getContraseña());
-					bd.copiar();
-					bd.eliminar(bd.getDinero());
-					bd.copiar();
+					bd.borrar(sca());
 					pri("eliminado");
 					break;
 				case "3":
@@ -39,10 +31,8 @@ public class Pruebas {
 					pri("cambiado");
 					break;
 				case "4":
-					bd.setNombre(sca());
-					bd.setContraseña(sca());
-					bd.setDinero("0");
-					bd.guardar();
+					bd.nuevo(sca(),sca());
+					pri("Guardado");
 			}
 		}while(s != "5");
 			

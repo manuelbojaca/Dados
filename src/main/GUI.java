@@ -1,13 +1,10 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,9 +23,10 @@ public class GUI extends JFrame implements ActionListener {
 	private JMenu opciones;
 	private JMenuItem log, rec, reg;
 	private JButton jugar, juegoNuevo, salir;
-	private JLabel turno, txApuesta, dados, resultado, anterior, dinero, user;
+	private JLabel turno, txApuesta, dados, resultado, anterior, dinero, user, mensaje;
 	private JTextField apuesta;
 	
+	private Juego juego = new Juego();
 	
 	private static final long serialVersionUID = 1L;
 
@@ -54,23 +52,30 @@ public class GUI extends JFrame implements ActionListener {
 		rec = new JMenuItem("Records");
 		log = new JMenuItem("Log in");
 		jugar = new JButton("Jugar");
-		juegoNuevo = new JButton("Jugar de nuevo");
+		//juegoNuevo = new JButton("Jugar de nuevo");
 		salir = new JButton("Salir");
+		user = new JLabel("Manueliciouss");
+		mensaje = new JLabel("Mensaje");
 		turno = new JLabel("Turno");
 		txApuesta = new JLabel("Apuesta");
 		dados = new JLabel("Dados");
-		resultado = new JLabel("Turno");
+		resultado = new JLabel("Resultado");
 		anterior = new JLabel("Anterior");
-		dinero = new JLabel("Dinero");
+		dinero = new JLabel("$Dinero");
 		apuesta = new JTextField();
-			
+		
+		Loggin loggin = new Loggin(this, true);
+		
 		this.getContentPane().add(panel);
 	
 		setJMenuBar(jmb);
 		
+		panel.setLayout(null);
 		jugar.setLayout(null);
-		juegoNuevo.setLayout(null);
+		//juegoNuevo.setLayout(null);
 		salir.setLayout(null);
+		user.setLayout(null);
+		mensaje.setLayout(null);
 		turno.setLayout(null);
 		txApuesta.setLayout(null);
 		dados.setLayout(null);
@@ -79,24 +84,28 @@ public class GUI extends JFrame implements ActionListener {
 		dinero.setLayout(null);
 		apuesta.setLayout(null);
 		
-		jugar.setBounds(125, 0, 298, 100);
-		juegoNuevo.setBounds(0, 100, 150, 100);
-		salir.setBounds(150, 100,150, 100 );
-		turno.setBounds(0, 200, 300, 100);
-		txApuesta.setBounds(0, 200, 300, 100);
-		dados.setBounds(0, 200, 300, 100);
-		resultado.setBounds(0, 200, 300, 100);
-		anterior.setBounds(0, 200, 300, 100);
-		dinero.setBounds(0, 200, 300, 100);
-		apuesta.setBounds(0, 200, 300, 100);
+		jugar.setBounds(100, 220, 90, 30);
+		//juegoNuevo.setBounds(0, 100, 150, 100);
+		salir.setBounds(120, 220, 80, 20);
+		user.setBounds(10, 10, 110, 20);
+		mensaje.setBounds(30, 170, 150, 20);
+		turno.setBounds(100, 80, 80, 20);
+		txApuesta.setBounds(10, 35, 80, 20);
+		dados.setBounds(20, 100, 80, 20);
+		resultado.setBounds(20, 140, 80, 20);
+		anterior.setBounds(100, 140, 80, 20);
+		dinero.setBounds(120, 10, 80, 20);
+		apuesta.setBounds(80, 35, 80, 20);
 			
 		jmb.add(opciones);
 		opciones.add(reg);
 		opciones.add(rec);
 		opciones.add(log);
 		panel.add(jugar);
-		panel.add(juegoNuevo);
-		panel.add(salir);
+		//panel.add(juegoNuevo);
+		//panel.add(salir);
+		panel.add(user);
+		panel.add(mensaje);
 		panel.add(turno);
 		panel.add(txApuesta);
 		panel.add(dados);
@@ -106,9 +115,44 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(apuesta);
 	
 		log.addActionListener(this);
-	}
 	
+		ActionListener menu = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == log) {
+					
+					pr.pri("Yeahs");
+					loggin.setVisible(true);
+				}
+				if(e.getSource() == reg) {
+					
+				}
+				if(e.getSource() == rec) {
+					
+				}
+			}
+		};
+		
+		ActionListener jugar = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				juego.inicio();
+				
+			}
+		};
+		
+		log.addActionListener(menu);
+	}
+
 	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+	
+	/*@Override
 	public void actionPerformed(ActionEvent e) {
 			
 		if(e.getSource() == log) {

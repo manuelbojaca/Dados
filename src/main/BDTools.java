@@ -19,6 +19,7 @@ public class BDTools extends Jugador{
 	private String file = "/home/manuel/eclipse-workspace/Appuesta/Datos.txt";
 	private String temp = "/home/manuel/eclipse-workspace/Appuesta/Temp.txt";
 	
+	protected Jugador jug = new Jugador();
 	
 	
 	public BDTools() {
@@ -38,13 +39,14 @@ public class BDTools extends Jugador{
 			fl = new File(file);
 			fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			pr.pri("y3"+ super.getNombre());
-			bw.write(super.getNombre());
+			//pr.pri("y3"+ super.getNombre());
+			//
+			bw.write(getNombre());
 			pr.pri("y6");
 			bw.newLine();
-			bw.write(super.getContraseña());
+			bw.write(getContraseña());
 			bw.newLine();
-			bw.write(super.getDinero());
+			bw.write(getDinero());
 			bw.newLine();
 			pr.pri("ya4");
 			bw.close();
@@ -58,7 +60,7 @@ public class BDTools extends Jugador{
 
 	public void buscar(String nombre) {
 		
-		super.setNombre(nombre);
+		setNombre(nombre);
 		File fl = null;
 		FileReader fr = null;
 		
@@ -73,8 +75,8 @@ public class BDTools extends Jugador{
 				if(linea.equalsIgnoreCase(nombre)) {
 					for(int i=0;i<2;i++) {
 						
-						if(i == 0)super.setContraseña(br.readLine());
-						if(i == 1)super.setDinero(br.readLine());
+						if(i == 0)setContraseña(br.readLine());
+						if(i == 1)setDinero(br.readLine());
 						//br.readLine();
 					}
 					encontrado = true;
@@ -93,7 +95,7 @@ public class BDTools extends Jugador{
 	}
 	
 	public void cambiar(String nombre, String cambio, int i) {
-		
+		pr.pri("ya");
 		buscar(nombre);
 		File fl = null;
 		FileReader fr = null;
@@ -109,9 +111,9 @@ public class BDTools extends Jugador{
 				if(linea.equalsIgnoreCase(nombre)) {
 					
 					pr.pri("ya");
-					if(i == 0)super.setNombre(cambio);
-					if(i == 1)super.setContraseña(cambio);
-					if(i == 2)super.setDinero(cambio);
+					if(i == 0)setNombre(cambio);
+					if(i == 1)setContraseña(cambio);
+					if(i == 2)setDinero(cambio);
 
 					encontrado = true;
 					break;
