@@ -30,7 +30,13 @@ public class Maquina extends Dado{
 	public void setTurno(int turno) {
 		this.turno = turno;
 	}
-	
+	public int getRes2() {
+		return res2;
+	}
+	public void setRes2(int res2) {
+		this.res2 = res2;
+	}
+
 	public int maqEstados() {
 		this.res = super.resDados();
 		System.out.println("res = "+res+" res2 = "+res2+" turno: "+turno);

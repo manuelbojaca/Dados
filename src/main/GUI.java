@@ -18,11 +18,12 @@ public class GUI extends JFrame implements ActionListener {
 	 
 	Pruebas pr = new Pruebas();
 	
+	String jug = "Jugar";
 	private JPanel panel;
 	private JMenuBar jmb;
 	private JMenu opciones;
 	private JMenuItem log, rec, reg;
-	private JButton jugar, juegoNuevo, salir;
+	private JButton jugar, lanzar, salir;
 	private JLabel turno, txApuesta, dados, resultado, anterior, dinero, user, mensaje;
 	private JTextField apuesta;
 	
@@ -51,17 +52,17 @@ public class GUI extends JFrame implements ActionListener {
 		reg = new JMenuItem("Registrar");
 		rec = new JMenuItem("Records");
 		log = new JMenuItem("Log in");
-		jugar = new JButton("Jugar");
-		//juegoNuevo = new JButton("Jugar de nuevo");
+		jugar = new JButton(jug);
+		lanzar = new JButton("Jugar de nuevo");
 		salir = new JButton("Salir");
-		user = new JLabel("Manueliciouss");
+		user = new JLabel("No user");
 		mensaje = new JLabel("Mensaje");
 		turno = new JLabel("Turno");
 		txApuesta = new JLabel("Apuesta");
 		dados = new JLabel("Dados");
 		resultado = new JLabel("Resultado");
 		anterior = new JLabel("Anterior");
-		dinero = new JLabel("$Dinero");
+		dinero = new JLabel("$");
 		apuesta = new JTextField();
 		
 		Loggin loggin = new Loggin(this, true);
@@ -72,7 +73,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		panel.setLayout(null);
 		jugar.setLayout(null);
-		//juegoNuevo.setLayout(null);
+		lanzar.setLayout(null);
 		salir.setLayout(null);
 		user.setLayout(null);
 		mensaje.setLayout(null);
@@ -85,15 +86,15 @@ public class GUI extends JFrame implements ActionListener {
 		apuesta.setLayout(null);
 		
 		jugar.setBounds(100, 220, 90, 30);
-		//juegoNuevo.setBounds(0, 100, 150, 100);
+		lanzar.setBounds(0, 100, 150, 100);
 		salir.setBounds(120, 220, 80, 20);
 		user.setBounds(10, 10, 110, 20);
-		mensaje.setBounds(30, 170, 150, 20);
+		mensaje.setBounds(30, 170, 200, 20);
 		turno.setBounds(100, 80, 80, 20);
 		txApuesta.setBounds(10, 35, 80, 20);
-		dados.setBounds(20, 100, 80, 20);
-		resultado.setBounds(20, 140, 80, 20);
-		anterior.setBounds(100, 140, 80, 20);
+		dados.setBounds(20, 100, 200, 20);
+		resultado.setBounds(20, 140, 100, 20);
+		anterior.setBounds(120, 140, 100, 20);
 		dinero.setBounds(120, 10, 80, 20);
 		apuesta.setBounds(80, 35, 80, 20);
 			
@@ -114,7 +115,6 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(dinero);
 		panel.add(apuesta);
 	
-		log.addActionListener(this);
 	
 		ActionListener menu = new ActionListener() {
 			@Override
@@ -133,16 +133,26 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		};
 		
-		ActionListener jugar = new ActionListener() {
+		ActionListener lanzar = new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				juego.inicio();
 				
+				turno.setText("Turno " + juego.getTurno());
+				dados.setText("Dado 1: "+ juego.getDado1() +" Dado 2: "+ juego.getDado2());
+				resultado.setText("Resultado: "+ (juego.getDado1()+juego.getDado2()));
+				anterior.setText("Anterior: "+ juego.getRes());
+				mensaje.setText(juego.mensaje());
+				if(juego.getTurno() > 1) {
+					jug = "lanzar";
+				}
 			}
 		};
 		
 		log.addActionListener(menu);
+		jugar.addActionListener(lanzar);
 	}
 
 	@Override
