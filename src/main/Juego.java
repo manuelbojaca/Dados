@@ -85,15 +85,16 @@ public class Juego {
 					this.dado1 = maquina.getDado1();
 					this.dado2 = maquina.getDado2();
 				
-				this.turno++;
-				System.out.println("Dado1:" + maquina.getDado1() + " Dado2:" + maquina.getDado2());
-				if (this.estado == 1) {
-					
-					System.out.println("Gano");
-				}else if(this.estado == 0) {
-					System.out.println("Pierde");
-				}
-				if(this.estado == 2) {
+					this.turno++;
+					System.out.println("Dado1:" + maquina.getDado1() + " Dado2:" + maquina.getDado2());
+					if (this.estado == 1) {
+						
+						System.out.println("Gano");
+					}else if(this.estado == 0) {
+						System.out.println("Pierde");
+					}
+				}	
+				else {
 					System.out.println("Dados: "+ this.turno +" presione f para lanzar");
 					//char pop1 = sc.next().charAt(0);
 					this.estado = maquina.maqEstados();

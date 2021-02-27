@@ -25,10 +25,10 @@ public class Loggin extends JDialog implements ActionListener{
 		
 		super(gui,modal);
 		
-		setSize(302, 339);
+		setSize(182, 180);
 		setTitle("Loggin");
 		setLocationRelativeTo(null);
-		setMinimumSize(new Dimension(300, 300));
+		setMinimumSize(new Dimension(150, 150));
 		initComponent();
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -37,21 +37,22 @@ public class Loggin extends JDialog implements ActionListener{
 		
 		panel = new JPanel();
 		entrar = new JButton("entrar");
-		userLog = new JTextField();
-		passLog = new JTextField();
-		textLog = new JLabel("Label");
+		userLog = new JTextField("user");
+		passLog = new JTextField("pass");
+		textLog = new JLabel("Ingrese sus datos");
 		
 		this.getContentPane().add(panel);
 		//panel.setLayout(new GridLayout(3,1));
+		panel.setLayout(null);
 		entrar.setLayout(null);
 		userLog.setLayout(null);
 		passLog.setLayout(null);
 		textLog.setLayout(null);
 		
-		entrar.setBounds(0, 100, 150, 100);
-		userLog.setBounds(150, 100, 150, 100);
-		passLog.setBounds(0, 200, 300, 100);
-		textLog.setBounds(0, 200, 300, 100);
+		entrar.setBounds(40, 110, 100, 20);
+		userLog.setBounds(30, 50, 110, 20);
+		passLog.setBounds(30, 80, 110, 20);
+		textLog.setBounds(20, 10, 140, 30);
 		
 		panel.add(entrar);
 		panel.add(userLog);
