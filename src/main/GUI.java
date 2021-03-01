@@ -31,7 +31,8 @@ public class GUI extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 
-	boolean estado = true;
+	private boolean estado = true;
+	
 	
 	public GUI() {
 		
@@ -57,7 +58,7 @@ public class GUI extends JFrame implements ActionListener {
 		newGame = new JButton("Jugar de nuevo");
 		salir = new JButton("Salir");
 		user = new JLabel("No user");
-		mensaje = new JLabel("Mensaje");
+		mensaje = new JLabel("Log in para jugar.");
 		turno = new JLabel("Turno");
 		txApuesta = new JLabel("Apuesta");
 		dados = new JLabel("Dados");
@@ -115,6 +116,12 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(anterior);
 		panel.add(dinero);
 		panel.add(apuesta);
+		
+		jugar.setEnabled(false);
+		if (loggin.getLogged()) {
+			jugar.setEnabled(true);
+		}
+		
 		newGame.setVisible(false);
 		salir.setVisible(false);
 	
@@ -125,6 +132,16 @@ public class GUI extends JFrame implements ActionListener {
 					
 					pr.pri("Yeahs");
 					loggin.setVisible(true);
+					/*if(loggin.isVisible()) {
+						//juego.setJug(loggin.getJugador());
+						//loggin.setVisible(false);
+					}*/
+					pr.pri("Yeahs2");
+					if(loggin.getLogged()) {
+						juego.setJugador(loggin.getJugador());
+						jugar.setEnabled(true);
+					}
+					loggin.dispose();
 				}
 				if(e.getSource() == reg) {
 					
@@ -140,22 +157,35 @@ public class GUI extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				juego.inicio();
-				
-				turno.setText("Turno " + juego.getTurno());
-				dados.setText("Dado 1: "+ juego.getDado1() +" Dado 2: "+ juego.getDado2());
-				resultado.setText("Resultado: "+ juego.getRes());
-				anterior.setText("Anterior: "+ juego.getRes2());
-				mensaje.setText(juego.mensaje());
-				
-				if(juego.getEstado() < 2) {
-					jugar.setVisible(false);
-					newGame.setVisible(true);
-					salir.setVisible(true);
-				
+				System.out.println(juego.getJugador().getNombre().equals(""));
+				if(!juego.getJugador().getNombre().equals("")) {
+					
+					juego.inicio();
+					if(loggin.getLogged()) {
+						
+						user.setText(juego.getJugador().getNombre());
+						dinero.setText("$"+juego.getJugador().getDinero());
+					}
+					turno.setText("Turno " + juego.getTurno());
+					dados.setText("Dado 1: "+ juego.getDado1() +" Dado 2: "+ juego.getDado2());
+					resultado.setText("Resultado: "+ juego.getRes());
+					anterior.setText("Anterior: "+ juego.getRes2());
+					mensaje.setText(juego.mensaje());
+					if(juego.getEstado() < 2) {
+						
+						jugar.setVisible(false);
+						newGame.setVisible(true);
+						salir.setVisible(true);
+					}
+					//jugar.setEnabled(true);
+				}
+				else {
+					//jugar.setEnabled(false);
+					mensaje.setText("Log in para comenzar a jugar.");
 				}
 			}
 		};
+		
 		ActionListener nwGame = new ActionListener() {
 
 			@Override
@@ -171,7 +201,7 @@ public class GUI extends JFrame implements ActionListener {
 				dados.setText("Dado 1:   Dado 2:");
 				resultado.setText("Resultado: ");
 				anterior.setText("Anterior: ");
-				mensaje.setText("Juego nuevo");
+				mensaje.setText("Ingrese apuesta.");
 			}
 		};
 		

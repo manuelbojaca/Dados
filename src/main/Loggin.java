@@ -15,18 +15,45 @@ public class Loggin extends JDialog implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	
+	Pruebas pr = new Pruebas();
 	private JPanel panel;
-	private JDialog loggin;
+	//private JDialog loggin;
 	private JButton entrar;
 	private JLabel textLog;
 	private JTextField userLog, passLog;
 	private Juego juego = new Juego();
+	private Jugador jugador = new Jugador();
+	private boolean logged = false;
 	
+	/*public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}*/
+	
+	public Jugador getJugador() {
+		return jugador;
+	}
+
+	public boolean getLogged() {
+		return logged;
+	}
+
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
+
 	public Loggin(GUI gui, boolean modal) {
 		
 		super(gui,modal);
 		
-		setSize(182, 180);
+		setSize(300, 180);
 		setTitle("Loggin");
 		setLocationRelativeTo(null);
 		setMinimumSize(new Dimension(150, 150));
@@ -36,6 +63,7 @@ public class Loggin extends JDialog implements ActionListener{
 	
 	public void initComponent () {
 		
+		pr.pri("init loggin");
 		panel = new JPanel();
 		entrar = new JButton("entrar");
 		userLog = new JTextField("user");
@@ -50,10 +78,10 @@ public class Loggin extends JDialog implements ActionListener{
 		passLog.setLayout(null);
 		textLog.setLayout(null);
 		
-		entrar.setBounds(40, 110, 100, 20);
-		userLog.setBounds(30, 50, 110, 20);
-		passLog.setBounds(30, 80, 110, 20);
-		textLog.setBounds(20, 10, 140, 30);
+		entrar.setBounds(100, 110, 100, 20);
+		userLog.setBounds(90, 50, 110, 20);
+		passLog.setBounds(90, 80, 110, 20);
+		textLog.setBounds(20, 10, 260, 30);
 		
 		panel.add(entrar);
 		panel.add(userLog);
@@ -65,11 +93,34 @@ public class Loggin extends JDialog implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				juego.loggin();
+				//int i = 0;
+				pr.pri("login");
+				pr.pri("pre_ user: "+userLog.getText()+" pass: "+passLog.getText());
+				System.out.println("user: "+(userLog.getText().length() == 0)+" pass: "+(passLog.getText().length() == 0));
+				if((userLog.getText().length() != 0) || (passLog.getText().length() != 0)) { 
+					
+					pr.pri("user,pass != null");
+					pr.pri("user: "+userLog.getText()+" pass: "+passLog.getText());
+					System.out.println("i: "+juego.loggin(userLog.getText(), passLog.getText()));
+					if (juego.loggin(userLog.getText(), passLog.getText()) == 1) {
+						
+						textLog.setText("Logged. Cierre esta ventana.");
+						jugador = juego.getJugador();
+						logged = true;
+					}
+					else {
+						
+						textLog.setText("Contraseña y/o usuario incorrectos");
+					}
+				}
+				else {
+					
+					textLog.setText("Usuario y/o contraseña nulos");
+				}
 			}
-
 		};
 		
+		entrar.addActionListener(log);
 		
 	}
 

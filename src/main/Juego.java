@@ -8,8 +8,9 @@ public class Juego {
 	private int estado;
 	private int turno;
 	private int dado1=0, dado2=0, res=0, res2=0;
-	private Jugador jug = new Jugador();
+	private Jugador jugador = new Jugador();
 	private Maquina maquina = new Maquina();
+	private BD bd;
 	
 	
 	public int getEstado() {
@@ -44,12 +45,12 @@ public class Juego {
 		this.dado2 = dado2;
 	}
 
-	public Jugador getJug() {
-		return jug;
+	public Jugador getJugador() {
+		return jugador;
 	}
 
-	public void setJug(Jugador jug) {
-		this.jug = jug;
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
 	}
 
 	public Maquina getMaquina() {
@@ -79,7 +80,7 @@ public class Juego {
 	public void inicio () {
 		
 		
-		if (jug.getNombre() != "") {
+		if (jugador.getNombre() != "") {
 			
 			this.turno++;
 			this.estado = maquina.maqEstados();
@@ -158,7 +159,7 @@ public class Juego {
 		if(estado == 0)str="Perdistesss";
 		if(estado == 1)str="Gana";
 		if(estado == 2)str="Sigue jugando";
-		if(estado == 3)str="";
+		if(estado == 3)str="Ingrese apuesta";
 		return str;
 	}
 	
@@ -169,7 +170,21 @@ public class Juego {
 		maquina.setRes2(0);
 	}
 	
-	public void loggin () {
-		
+	public int loggin (String user, String pass) {
+		bd = new BD();
+		pr.pri("user: "+user+" pass: "+pass);
+		bd.buscar(user);
+		System.out.println("bd.pass: "+bd.getContraseña()+" pass: "+pass);
+		System.out.println("bd.pass: "+bd.getContraseña().length()+" pass: "+pass.length());
+		if(bd.getContraseña().equals(pass)) {
+			System.out.println("iguales");
+			jugador.setNombre(bd.getNombre());
+			jugador.setContraseña(bd.getContraseña());
+			jugador.setDinero(bd.getDinero());
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

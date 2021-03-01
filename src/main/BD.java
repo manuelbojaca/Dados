@@ -3,9 +3,11 @@ package main;
 public class BD extends BDTools{
 	
 	private String dinIni = "2000";
+	//private Jugador jug;
 	
 	public void buscar (String nombre) {
 		
+		System.out.println("bd.buscar");
 		super.buscar(nombre);
 	}
 	
