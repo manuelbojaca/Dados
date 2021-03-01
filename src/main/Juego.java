@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class Juego {
 	
+	Pruebas pr = new Pruebas();
 	private int estado;
-	private int turno = 0;
-	private int dado1=0, dado2=0, res=0;
+	private int turno;
+	private int dado1=0, dado2=0, res=0, res2=0;
 	private Jugador jug = new Jugador();
 	private Maquina maquina = new Maquina();
 	
@@ -66,27 +67,65 @@ public class Juego {
 	public void setRes(int res) {
 		this.res = res;
 	}
+	
+	public int getRes2() {
+		return res2;
+	}
 
+	public void setRes2(int res2) {
+		this.res2 = res2;
+	}
+	
 	public void inicio () {
 		
-		/*Modificar esta clase para que siga el orden correcto
-		 * los if estan mal <-- ERROR*/
 		
 		if (jug.getNombre() != "") {
 			
-			try {
-				this.res = maquina.getRes2();
-				//Scanner sc = new Scanner(System.in);
-				System.out.println("Dados: "+this.turno+" presione f para lanzar");
-				//char pop = sc.next().charAt(0);
-				if(estado != 2) {
+			this.turno++;
+			this.estado = maquina.maqEstados();
+			this.dado1 = maquina.getDado1();
+			this.dado2 = maquina.getDado2();
+			this.res = maquina.getRes();
+			this.res2 = maquina.getRes2();
+			
+			if (this.turno == 1) {
+				
+				pr.pri("estado: "+this.estado);
+				
+				if (this.estado == 1) {
+					pr.pri("Gano");
+					this.estado = 0;
+					this.turno = 0;
 					
-					this.estado = maquina.maqEstados();
+				}else if(this.estado == 0) {
+					pr.pri("Pierde");
+					this.estado = 0;
+					this.turno = 0;
+				
+				}else {
+					pr.pri("loli");
+				}
+			}
+			else {
+				
+				pr.pri("turno = "+this.turno);
+			}
+		}
+		
+		/*pr.pri("Nombre: "+ jug.getNombre());
+		if (jug.getNombre() != "") {
+			
+			try {
+				
+				this.estado = maquina.maqEstados();
+				pr.pri("estado = " + estado);
+				if(estado != 2) {
+					pr.pri("quedo");
 					this.dado1 = maquina.getDado1();
 					this.dado2 = maquina.getDado2();
 				
 					this.turno++;
-					System.out.println("Dado1:" + maquina.getDado1() + " Dado2:" + maquina.getDado2());
+					
 					if (this.estado == 1) {
 						
 						System.out.println("Gano");
@@ -95,11 +134,7 @@ public class Juego {
 					}
 				}	
 				else {
-					System.out.println("Dados: "+ this.turno +" presione f para lanzar");
-					//char pop1 = sc.next().charAt(0);
-					this.estado = maquina.maqEstados();
-					//this.turno++;
-					System.out.println("Dado1:"+maquina.getDado1()+" Dado2:"+maquina.getDado2());
+					pr.pri("paso");
 					if (this.estado == 1) {
 						System.out.println("Gano");
 						this.estado = 0;
@@ -115,7 +150,7 @@ public class Juego {
 			}finally {
 				//sc.close();
 			}
-		}	
+		}*/	
 	}
 	
 	public String mensaje () {
@@ -123,6 +158,18 @@ public class Juego {
 		if(estado == 0)str="Perdistesss";
 		if(estado == 1)str="Gana";
 		if(estado == 2)str="Sigue jugando";
+		if(estado == 3)str="";
 		return str;
+	}
+	
+	public void nwGame() {
+		this.turno = 0;
+		this.estado = 3;
+		maquina.setTurno(0);
+		maquina.setRes2(0);
+	}
+	
+	public void loggin () {
+		
 	}
 }

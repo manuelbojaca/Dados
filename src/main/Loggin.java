@@ -20,6 +20,7 @@ public class Loggin extends JDialog implements ActionListener{
 	private JButton entrar;
 	private JLabel textLog;
 	private JTextField userLog, passLog;
+	private Juego juego = new Juego();
 	
 	public Loggin(GUI gui, boolean modal) {
 		
@@ -59,6 +60,16 @@ public class Loggin extends JDialog implements ActionListener{
 		panel.add(passLog);
 		panel.add(textLog);
 		
+		ActionListener log = new ActionListener( ) {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				juego.loggin();
+			}
+
+		};
+		
 		
 	}
 
@@ -67,5 +78,6 @@ public class Loggin extends JDialog implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 }

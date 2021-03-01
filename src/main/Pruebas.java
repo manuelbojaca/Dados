@@ -54,4 +54,8 @@ public class Pruebas {
 		System.out.println(arg);
 	}
 	
+	public void pri (int arg) {
+		System.out.println(arg);
+	}
+	
 }

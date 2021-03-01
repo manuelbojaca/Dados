@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Maquina extends Dado{
 	
-	
+	Pruebas pr = new Pruebas();
 	private int res;
 	private int res2;
 	private int estado;
 	private int turno = 0;
 	//private Dado dados = new Dado();
-	private final boolean pierde = (this.res==2) || (this.res==3) || (this.res==12);
-	private final boolean gana = (this.res==7) || (this.res==11);
+	//private final boolean pierde = (this.res==2) || (this.res==3) || (this.res==12);
+	//private final boolean gana = (this.res==7) || (this.res==11);
 	//private final boolean pierde2 = (this.res==2) || (this.res==3) || (this.res==12);
 	
 	public Maquina () {
@@ -29,7 +29,16 @@ public class Maquina extends Dado{
 	}
 	public void setTurno(int turno) {
 		this.turno = turno;
+	
 	}
+	public int getRes() {
+		return res;
+	}
+
+	public void setRes(int res) {
+		this.res = res;
+	}
+
 	public int getRes2() {
 		return res2;
 	}
@@ -38,39 +47,41 @@ public class Maquina extends Dado{
 	}
 
 	public int maqEstados() {
+
 		this.res = super.resDados();
-		System.out.println("res = "+res+" res2 = "+res2+" turno: "+turno);
+		pr.pri("turno_ = "+this.turno);
 		if(turno == 0) {	
+			System.out.println("Entro a Turno == 0 maqEs...." + this.res);
 			this.turno = 2;
-			if (gana) {
-				System.out.println();
+			if ((this.res==7) || (this.res==11)) {
+				System.out.println("gana turno 1");
 				this.turno=1;
 				return 1;
 			}
-			else if(pierde){
-				System.out.println();
+			else if((this.res==2) || (this.res==3) || (this.res==12)){
+				System.out.println("pierde otro turno");
 				this.turno=1;
 				return 0;
 			}
 			else {
-				System.out.println();
+				//System.out.println();
 				this.res2 = this.res;
 				return 2;
 			}
 		}
 		else {
 			if (res == 7) {
-				System.out.println();
+				//System.out.println();
 				this.turno=1;
 				return 0;
 			}
 			else if (res == res2) {
-				System.out.println();
+				//System.out.println();
 				this.turno=1;
 				return 1;
 			}
 			else{
-				System.out.println();
+				System.out.println("Suigue jugando");
 				//this.res2 = this.res;
 				return 2;
 			}
