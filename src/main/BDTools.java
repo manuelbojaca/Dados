@@ -19,7 +19,7 @@ public class BDTools extends Jugador{
 	private String file = "/home/manuel/eclipse-workspace/Appuesta/Datos.txt";
 	private String temp = "/home/manuel/eclipse-workspace/Appuesta/Temp.txt";
 	
-	protected Jugador jug = new Jugador();
+	//protected Jugador jug = new Jugador();
 	
 	
 	public BDTools() {
@@ -39,14 +39,14 @@ public class BDTools extends Jugador{
 			fl = new File(file);
 			fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			//pr.pri("y3"+ super.getNombre());
+			pr.pri("y3"+ super.getNombre());
 			//
-			bw.write(getNombre());
+			bw.write(super.getNombre());
 			pr.pri("y6");
 			bw.newLine();
-			bw.write(getContraseña());
+			bw.write(super.getContraseña());
 			bw.newLine();
-			bw.write(getDinero());
+			bw.write(super.getDinero());
 			bw.newLine();
 			pr.pri("ya4");
 			bw.close();
@@ -60,7 +60,7 @@ public class BDTools extends Jugador{
 
 	public void buscar(String nombre) {
 		
-		setNombre(nombre);
+		super.setNombre(nombre);
 		File fl = null;
 		FileReader fr = null;
 		
@@ -75,8 +75,8 @@ public class BDTools extends Jugador{
 				if(linea.equalsIgnoreCase(nombre)) {
 					for(int i=0;i<2;i++) {
 						
-						if(i == 0)setContraseña(br.readLine());
-						if(i == 1)setDinero(br.readLine());
+						if(i == 0)super.setContraseña(br.readLine());
+						if(i == 1)super.setDinero(br.readLine());
 						//br.readLine();
 					}
 					encontrado = true;
@@ -94,7 +94,19 @@ public class BDTools extends Jugador{
 		}
 	}
 	
-	public void cambiar(String nombre, String cambio, int i) {
+	public void cambiar (String nombre, String cambio, int i) {
+		
+		this.buscar(nombre);
+		this.eliminarU(nombre);
+		this.copiar();
+		if(i == 0)super.setNombre(cambio);
+		if(i == 1)super.setContraseña(cambio);
+		if(i == 2)super.setDinero(cambio);
+		System.out.println("nombre:"+super.getNombre()+" pass: "+super.getContraseña()+" $ "+super.getDinero());
+		this.guardar();
+	}
+	
+	/*public void cambiar(String nombre, String cambio, int i) {
 		pr.pri("ya");
 		buscar(nombre);
 		File fl = null;
@@ -111,15 +123,16 @@ public class BDTools extends Jugador{
 				if(linea.equalsIgnoreCase(nombre)) {
 					
 					pr.pri("ya");
-					if(i == 0)setNombre(cambio);
-					if(i == 1)setContraseña(cambio);
-					if(i == 2)setDinero(cambio);
+					if(i == 0)super.setNombre(cambio);
+					if(i == 1)super.setContraseña(cambio);
+					if(i == 2)super.setDinero(cambio);
 
 					encontrado = true;
 					break;
 				}
 			}
 			this.eliminar(nombre);
+			System.out.println("nombre:"+super.getNombre()+" pass: "+super.getContraseña()+" $ "+super.getDinero());
 			this.guardar();
 			if(!encontrado) System.out.println("El usuario no existe");
 			
@@ -130,34 +143,66 @@ public class BDTools extends Jugador{
 		}catch(IOException e) {
 			System.out.println("Paila ");
 		}
+	}*/
+	
+	public void eliminarU(String cambio) {
+		
+		File fl1 =new File(temp);
+		File fl = new File(file);
+
+	    try {
+	    	BufferedReader br = new BufferedReader(new FileReader(fl));
+	    	PrintWriter bw = new PrintWriter(new FileWriter(fl1));
+
+	    	String linea;
+
+	    while((linea = br.readLine()) != null) {                        
+	    	String trimmedLine = linea.trim();
+	    	if(trimmedLine.equals(cambio)) { 
+	    		br.readLine();
+	    		br.readLine();
+	    		continue;
+	    	}
+	    	bw.write(linea + System.getProperty("line.separator"));	
+	    	this.copiar();
+	    }   
+	    
+	    
+	    br.close();
+	    bw.close();
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
-	public void eliminar(String cambio) {
+public void eliminar(String cambio) {
 		
-			File fl1 =new File(temp);
-			File fl = new File(file);
+		File fl1 =new File(temp);
+		File fl = new File(file);
 
-		    try {
-		    	BufferedReader br = new BufferedReader(new FileReader(fl));
-		    	PrintWriter bw = new PrintWriter(new FileWriter(fl1));
+	    try {
+	    	BufferedReader br = new BufferedReader(new FileReader(fl));
+	    	PrintWriter bw = new PrintWriter(new FileWriter(fl1));
 
-		    	String linea;
+	    	String linea;
 
-		    while((linea = br.readLine()) != null) {                        
-		    	String trimmedLine = linea.trim();
-		    	if(trimmedLine.equals(cambio)) continue;
-		    	    bw.write(linea + System.getProperty("line.separator"));	
-		    	this.copiar();
-		    }   
-		    
-		    
-		    br.close();
-		    bw.close();
+	    while((linea = br.readLine()) != null) {                        
+	    	String trimmedLine = linea.trim();
+	    	if(trimmedLine.equals(cambio)) continue;
+	    	bw.write(linea + System.getProperty("line.separator"));	
+	    	this.copiar();
+	    }   
+	    
+	    
+	    br.close();
+	    bw.close();
 
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+	
 	
 	public void copiar () {
 

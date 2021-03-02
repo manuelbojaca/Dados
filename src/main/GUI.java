@@ -157,32 +157,39 @@ public class GUI extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println(juego.getJugador().getNombre().equals(""));
-				if(!juego.getJugador().getNombre().equals("")) {
+				if (!apuesta.getText().equals("") && (juego.palNum(apuesta.getText())<(1+juego.palNum(apuesta.getText())))) {
 					
-					juego.inicio();
-					if(loggin.getLogged()) {
+					System.out.println(juego.getJugador().getNombre().equals(""));
+					if(!juego.getJugador().getNombre().equals("")) {
 						
-						user.setText(juego.getJugador().getNombre());
-						dinero.setText("$"+juego.getJugador().getDinero());
+						juego.inicio();
+						if(loggin.getLogged()) {
+							
+							user.setText(juego.getJugador().getNombre());
+							dinero.setText("$"+juego.getJugador().getDinero());
+						}
+						turno.setText("Turno " + juego.getTurno());
+						dados.setText("Dado 1: "+ juego.getDado1() +" Dado 2: "+ juego.getDado2());
+						resultado.setText("Resultado: "+ juego.getRes());
+						anterior.setText("Anterior: "+ juego.getRes2());
+						mensaje.setText(juego.mensaje());
+						//if() {}
+						System.out.println("$Jug: "+juego.getJugador().getDinero()+" apuesta: "+apuesta.getText());
+						if(juego.getEstado() == 2)juego.apuesta(juego.getJugador().getDinero(), apuesta.getText());
+						System.out.println("Paso esa merga");
+						if(juego.getEstado() < 2) {
+							
+							jugar.setVisible(false);
+							newGame.setVisible(true);
+							salir.setVisible(true);
+						}
+						//jugar.setEnabled(true);
 					}
-					turno.setText("Turno " + juego.getTurno());
-					dados.setText("Dado 1: "+ juego.getDado1() +" Dado 2: "+ juego.getDado2());
-					resultado.setText("Resultado: "+ juego.getRes());
-					anterior.setText("Anterior: "+ juego.getRes2());
-					mensaje.setText(juego.mensaje());
-					if(juego.getEstado() < 2) {
-						
-						jugar.setVisible(false);
-						newGame.setVisible(true);
-						salir.setVisible(true);
+					else {
+						//jugar.setEnabled(false);
+						mensaje.setText("Log in para comenzar a jugar.");
 					}
-					//jugar.setEnabled(true);
-				}
-				else {
-					//jugar.setEnabled(false);
-					mensaje.setText("Log in para comenzar a jugar.");
-				}
+				}	
 			}
 		};
 		

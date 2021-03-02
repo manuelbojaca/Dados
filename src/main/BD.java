@@ -11,7 +11,7 @@ public class BD extends BDTools{
 		super.buscar(nombre);
 	}
 	
-	public void borrar(String nombre) {
+	/*public void borrar(String nombre) {
 		
 		super.buscar(nombre);
 		super.eliminar(super.getNombre());
@@ -21,7 +21,12 @@ public class BD extends BDTools{
 		super.eliminar(super.getDinero());
 		super.copiar();
 		pr.pri("eliminado");
-	} 
+	}*/
+	public void borrar (String nombre) {
+		
+		super.eliminarU(nombre);
+		super.copiar();
+	}
 	
 	public void cambiar(String nombre, String cambio, int i) {
 		

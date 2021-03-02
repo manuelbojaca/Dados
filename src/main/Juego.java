@@ -187,4 +187,18 @@ public class Juego {
 			return 0;
 		}
 	}
+	public int apuesta (String str1, String str2) {
+		
+		bd = new BD();
+		System.out.println("sisa");
+		int i = (Integer.parseInt(str1))-(Integer.parseInt(str2));
+		String str3 = String.valueOf(i);
+		System.out.println("i: "+i+" str3: "+str3+" user:"+jugador.getNombre());
+		bd.cambiar(jugador.getNombre(), str3, 2);
+		System.out.println("paso here");
+		return i;
+	}
+	public int palNum(String str) {
+		return Integer.parseInt(str);
+	}
 }
