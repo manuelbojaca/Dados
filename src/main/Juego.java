@@ -79,7 +79,6 @@ public class Juego {
 	
 	public void inicio () {
 		
-		
 		if (jugador.getNombre() != "") {
 			
 			this.turno++;
@@ -155,6 +154,7 @@ public class Juego {
 	}
 	
 	public String mensaje () {
+		
 		String str = "";
 		if(estado == 0)str="Perdistesss";
 		if(estado == 1)str="Gana";
@@ -164,6 +164,7 @@ public class Juego {
 	}
 	
 	public void nwGame() {
+		
 		this.turno = 0;
 		this.estado = 3;
 		maquina.setTurno(0);
@@ -171,13 +172,11 @@ public class Juego {
 	}
 	
 	public int loggin (String user, String pass) {
+		
 		bd = new BD();
-		pr.pri("user: "+user+" pass: "+pass);
 		bd.buscar(user);
-		System.out.println("bd.pass: "+bd.getContraseña()+" pass: "+pass);
-		System.out.println("bd.pass: "+bd.getContraseña().length()+" pass: "+pass.length());
 		if(bd.getContraseña().equals(pass)) {
-			System.out.println("iguales");
+
 			jugador.setNombre(bd.getNombre());
 			jugador.setContraseña(bd.getContraseña());
 			jugador.setDinero(bd.getDinero());
@@ -187,18 +186,41 @@ public class Juego {
 			return 0;
 		}
 	}
+	
+	public int registro (String user, String pass) {
+		
+		bd = new BD();
+		bd.buscar(user);
+		System.out.println("Nombre.bd: "+bd.getNombre());
+		if(bd.getContraseña().equals("")) {
+			bd.nuevo(user, pass);
+			return 1;
+		}
+		else {
+			return 0;
+		}
+		
+	}
+	
 	public int apuesta (String str1, String str2) {
 		
 		bd = new BD();
-		System.out.println("sisa");
 		int i = (Integer.parseInt(str1))-(Integer.parseInt(str2));
 		String str3 = String.valueOf(i);
-		System.out.println("i: "+i+" str3: "+str3+" user:"+jugador.getNombre());
 		bd.cambiar(jugador.getNombre(), str3, 2);
-		System.out.println("paso here");
 		return i;
 	}
 	public int palNum(String str) {
 		return Integer.parseInt(str);
+	}
+	
+	public boolean apuesta (String apuesta, int dinero) {
+		boolean res = false;
+		if(!apuesta.equals("")) {
+			if(palNum(apuesta) < dinero) {
+				res = true;
+			}
+		}
+		return res;
 	}
 }

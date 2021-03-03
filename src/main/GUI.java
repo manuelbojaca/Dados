@@ -68,6 +68,7 @@ public class GUI extends JFrame implements ActionListener {
 		apuesta = new JTextField();
 		
 		Loggin loggin = new Loggin(this, true);
+		Registro registro = new Registro(this, true);
 		
 		this.getContentPane().add(panel);
 	
@@ -118,8 +119,12 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(apuesta);
 		
 		jugar.setEnabled(false);
+		apuesta.setEnabled(false);
+		
 		if (loggin.getLogged()) {
+			
 			jugar.setEnabled(true);
+			apuesta.setEnabled(false);
 		}
 		
 		newGame.setVisible(false);
@@ -128,23 +133,25 @@ public class GUI extends JFrame implements ActionListener {
 		ActionListener menu = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(e.getSource() == log) {
 					
 					pr.pri("Yeahs");
 					loggin.setVisible(true);
-					/*if(loggin.isVisible()) {
-						//juego.setJug(loggin.getJugador());
-						//loggin.setVisible(false);
-					}*/
-					pr.pri("Yeahs2");
+					
 					if(loggin.getLogged()) {
 						juego.setJugador(loggin.getJugador());
 						jugar.setEnabled(true);
+						loggin.setVisible(false);
+						panel.updateUI();
+						mensaje.setText("Ingrese apuesta");
+						user.setText(juego.getJugador().getNombre());
+						dinero.setText(juego.getJugador().getDinero());
 					}
-					loggin.dispose();
 				}
 				if(e.getSource() == reg) {
 					
+					registro.setVisible(true);
 				}
 				if(e.getSource() == rec) {
 					
@@ -157,10 +164,10 @@ public class GUI extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if (!apuesta.getText().equals("") && (juego.palNum(apuesta.getText())<(1+juego.palNum(apuesta.getText())))) {
+				if (!apuesta.getText().equals("")) {
 					
-					System.out.println(juego.getJugador().getNombre().equals(""));
-					if(!juego.getJugador().getNombre().equals("")) {
+					System.out.println("lol "+apuesta.getText()+" "+(juego.palNum(juego.getJugador().getDinero())));
+					if(juego.apuesta(apuesta.getText(), 1+juego.palNum(juego.getJugador().getDinero()))) {
 						
 						juego.inicio();
 						if(loggin.getLogged()) {
@@ -173,22 +180,23 @@ public class GUI extends JFrame implements ActionListener {
 						resultado.setText("Resultado: "+ juego.getRes());
 						anterior.setText("Anterior: "+ juego.getRes2());
 						mensaje.setText(juego.mensaje());
-						//if() {}
-						System.out.println("$Jug: "+juego.getJugador().getDinero()+" apuesta: "+apuesta.getText());
 						if(juego.getEstado() == 2)juego.apuesta(juego.getJugador().getDinero(), apuesta.getText());
-						System.out.println("Paso esa merga");
 						if(juego.getEstado() < 2) {
 							
 							jugar.setVisible(false);
 							newGame.setVisible(true);
 							salir.setVisible(true);
 						}
-						//jugar.setEnabled(true);
+						
 					}
 					else {
-						//jugar.setEnabled(false);
-						mensaje.setText("Log in para comenzar a jugar.");
-					}
+						if(loggin.getLogged()) {
+							mensaje.setText("Apuesta insuficiente.");
+						}
+						else {
+							mensaje.setText("Log in para comenzar a jugar.");
+						}
+					}	
 				}	
 			}
 		};
@@ -209,10 +217,13 @@ public class GUI extends JFrame implements ActionListener {
 				resultado.setText("Resultado: ");
 				anterior.setText("Anterior: ");
 				mensaje.setText("Ingrese apuesta.");
+				panel.updateUI();
+				
 			}
 		};
 		
 		log.addActionListener(menu);
+		reg.addActionListener(menu);
 		jugar.addActionListener(lanzar);
 		newGame.addActionListener(nwGame);
 	}
@@ -223,122 +234,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 	}
 }
-	
-	/*@Override
-	public void actionPerformed(ActionEvent e) {
-			
-		if(e.getSource() == log) {
-			Loggin loggin = new Loggin(this, true);
-			pr.pri("Yeahs");
-			loggin.setVisible(true);
-		}
-		if(e.getSource() == reg) {
-			
-		}
-		if(e.getSource() == rec) {
-			
-		}
-	}
 
-	
-	
-}			
-		/*ActionListener jugar = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		};
-		
-		ActionListener Salir = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		};*/
-		
-		
-		/*ActionListener aLPlay = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				estado = true;
-				Thread hilo = new Thread() {
-					public void run() {
-						System.out.println("run");
-						hor.contar();
-						min.contar();
-						seg.contar();
-						for(;;) {
-							if(estado == true) {
-								display.setText(hor.definir() + ":" + min.definir()+ ":" + seg.definir());
-							}
-							else {
-								System.out.println("break");
-								break;
-							}
-						}
-					}
-				};
-				
-				if (estado == false) {
-					estado = true;
-					hilo.start();
-				}else {
-					hilo.start();
-				}
-				boolean bol = false;
-				if (bol) 
-					bol = false;
-				else 
-					bol = true;
-				
-				hor.contar();
-				min.contar();
-				seg.contar();
-				
-				for (int i = 0; i<100; i++) {
-					display.setText(hor.definir() + ":" + min.definir()+ ":" + seg.definir());
-					try {
-						Thread.sleep(30);
-					} catch (InterruptedException ex) {
-					}
-				}
-			}
-		};
-		
-		ActionListener aLPause = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				estado = false;
-				System.out.println("reiniando" );
-				hor.pausar();
-				min.pausar();
-				seg.pausar();
-			}
-			
-		};
-		
-		ActionListener aLReiniciar = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				estado = true;
-				hor.reiniciar();
-				min.reiniciar();
-				seg.reiniciar();
-				display.setText("00:00:00");
-				System.out.println("00:00:00");
-			}
-			
-		};
-		
-		play.addActionListener(aLPlay);
-		pause.addActionListener(aLPause);
-		reiniciar.addActionListener(aLReiniciar);
-	}*/
 
 	
 

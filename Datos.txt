@@ -15,4 +15,7 @@ mia
 1700
 manuel
 poxx
-180
+20000
+juanita
+pass
+2000

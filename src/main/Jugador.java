@@ -1,7 +1,7 @@
 package main;
 
 public class Jugador {
-	private String nombre;
+	private String nombre = "";
 	private String contraseña = "";
 	private String dinero = "";
 	

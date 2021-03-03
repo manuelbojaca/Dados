@@ -17,7 +17,6 @@ public class Loggin extends JDialog implements ActionListener{
 	
 	Pruebas pr = new Pruebas();
 	private JPanel panel;
-	//private JDialog loggin;
 	private JButton entrar;
 	private JLabel textLog;
 	private JTextField userLog, passLog;
@@ -25,13 +24,6 @@ public class Loggin extends JDialog implements ActionListener{
 	private Jugador jugador = new Jugador();
 	private boolean logged = false;
 	
-	/*public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}*/
 	
 	public Jugador getJugador() {
 		return jugador;
@@ -93,15 +85,8 @@ public class Loggin extends JDialog implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				//int i = 0;
-				pr.pri("login");
-				pr.pri("pre_ user: "+userLog.getText()+" pass: "+passLog.getText());
-				System.out.println("user: "+(userLog.getText().length() == 0)+" pass: "+(passLog.getText().length() == 0));
-				if((userLog.getText().length() != 0) || (passLog.getText().length() != 0)) { 
+				if((userLog.getText().equals("")) || (passLog.getText().equals(""))) { 
 					
-					pr.pri("user,pass != null");
-					pr.pri("user: "+userLog.getText()+" pass: "+passLog.getText());
-					System.out.println("i: "+juego.loggin(userLog.getText(), passLog.getText()));
 					if (juego.loggin(userLog.getText(), passLog.getText()) == 1) {
 						
 						textLog.setText("Logged. Cierre esta ventana.");
@@ -117,6 +102,7 @@ public class Loggin extends JDialog implements ActionListener{
 					
 					textLog.setText("Usuario y/o contraseña nulos");
 				}
+				
 			}
 		};
 		
